@@ -79,6 +79,7 @@ function App() {
     const updatedData = data.filter(user => !selectedRows.includes(user.id));
     setdata(updatedData);
     setSelectedRows([]);
+    setSelectAll(false);
   };
 
   
@@ -127,6 +128,7 @@ function App() {
       setSelectedRows(currentrecords.map(user => user.id));
     } else {
       setSelectedRows([]);
+      setSelectAll(false); // Uncheck the "Select All" checkbox
     }
   };
   const handlePageChange = (pageNumber) => {
