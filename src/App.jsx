@@ -81,7 +81,12 @@ function App() {
     setSelectedRows([]);
     setSelectAll(false);
   };
-
+  
+  const deleteall = ()=>{
+    setdata([]);
+    setSelectAll(false);
+    setSelectedRows([]);
+  }
   
   const handleEdit = (user) => {
     setEditingId(user.id);
@@ -189,10 +194,7 @@ function App() {
             />
             Select All
           </label>
-          <div className='delete-selected'>
-            <img src={Deleteicon} className='top-delete' onClick={handleDeleteSelected}/>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
-          </div>
+          <img src={Deleteicon} className='top-delete' onClick={deleteall}/>
         </div>
         <table className='user-table'>
           <thead>
@@ -270,7 +272,10 @@ function App() {
           </tbody>
         </table>
         <div className='below-table'>
-          <h3>{selectedRows.length===0?0:selectedRows.length} of {data.length} rows Selected</h3>
+          <div className='delete-selected'>
+            <button onClick={handleDeleteSelected}>Delete Selected</button>
+            <h3>{selectedRows.length===0?0:selectedRows.length} of {data.length} rows Selected</h3>
+          </div>
           <div className='pagination'>
             <h3>Page {currentPage} of {pageCount}</h3>
             <div className='first-page'>
