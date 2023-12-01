@@ -9,6 +9,7 @@ import backward from "./assets/backward.png"
 import forward from "./assets/forward.png"
 import fastforward from "./assets/fastforward.png"
 import backfastforward from "./assets/backfastforward.png"
+import { useEffect } from 'react'
 
 function App() {
   const [In, setIn] = useState("");
@@ -27,6 +28,20 @@ function App() {
   const handleInputChange = (e, field) => {
     setEditedUser({ ...editedUser, [field]: e.target.value });
   };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get(import.meta.env.VITE_API_ENDPOINT);
+        const fetchedData = res.data.sort((a, b) => a.id - b.id);
+        setdata(fetchedData);
+      } catch (error) {
+        console.log('Error fetching initial data:', error);
+      }
+    }
+
+    fetchData(); // Fetch data when the component mounts
+  }, []);
 
   async function handlesearch(){
     try{
@@ -141,8 +156,10 @@ function App() {
   const renderPagination = () => {
     const pageNumbers = [];
     for (let i = 1; i <= pageCount; i++) {
+      const isActive = i === currentPage ? 'active-page' : ''; // Check if it's the current page
+  
       pageNumbers.push(
-        <button key={i} onClick={() => handlePageChange(i)} className='page-number'>
+        <button key={i} onClick={() => handlePageChange(i)} className={`page-number ${isActive}`}>
           {i}
         </button>
       );
