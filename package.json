@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "chart.js": "^4.4.0",
     "dotenv": "^16.3.1",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-crud-icons": "^1.2.3",
     "react-dom": "^18.2.0",
-    "react-paginate": "^8.2.0"
+    "react-paginate": "^8.2.0",
+    "recharts": "^2.10.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

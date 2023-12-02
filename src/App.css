@@ -35,6 +35,12 @@
 .user-table td:first-child {
   border-left: none; /* Remove left border for first column */
 }
+.user-table tbody td{
+  transition: transform 0.2s ease-in-out;
+}
+.user-table tbody td:hover{
+  transform: scale(1.1);
+}
 
 
 /* CSS for table actions */
@@ -104,7 +110,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px; /* Adjust the margin top as needed */
+  margin-top: 5px; /* Adjust the margin top as needed */
 }
 
 /* Style for the row count and page count */
@@ -119,6 +125,11 @@
   padding: 10px;
   border-radius: 5px;
   overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.table-input:hover{
+  transform: scale(1.2);
 }
 
 .pagination {
@@ -222,3 +233,4 @@
 .top-delete:hover{
   transform: scale(1.2);
 }
+

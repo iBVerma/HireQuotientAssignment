@@ -10,6 +10,8 @@ import forward from "./assets/forward.png"
 import fastforward from "./assets/fastforward.png"
 import backfastforward from "./assets/backfastforward.png"
 import { useEffect } from 'react'
+import { PieChart,Pie } from 'recharts'
+import Stats from './Stats'
 
 function App() {
   const [In, setIn] = useState("");
@@ -20,6 +22,8 @@ function App() {
   const [selectedRows, setSelectedRows] = useState([]);
   const [editingId, setEditingId] = useState(null); 
   const [editedUser, setEditedUser] = useState({});
+  const [admins,setadmins]=useState(0);
+  const [members,setmembers]=useState(0);
   
   const handleinput =(e)=>{
     setIn(e.target.value);
@@ -34,6 +38,10 @@ function App() {
       try {
         const res = await axios.get(import.meta.env.VITE_API_ENDPOINT);
         const fetchedData = res.data.sort((a, b) => a.id - b.id);
+        const c = fetchedData.filter(user=>user.role==='admin')
+        const d = fetchedData.filter(user=>user.role==='member')
+        setadmins(c.length);
+        setmembers(d.length);
         setdata(fetchedData);
       } catch (error) {
         console.log('Error fetching initial data:', error);
@@ -57,8 +65,16 @@ function App() {
           )
         );
         console.log(filteredUsers);
+        const c = filteredUsers.filter(user=>user.role==='admin')
+        const d = filteredUsers.filter(user=>user.role==='member')
+        setadmins(c.length);
+        setmembers(d.length);
         setdata(filteredUsers);
       }else{
+        const c= b.filter(user=>user.role==='admin')
+        const d = b.filter(user=>user.role==='member')
+        setadmins(c.length);
+        setmembers(d.length);
         setdata(b);
       }
     }catch{
@@ -96,6 +112,10 @@ function App() {
   const handleDelete = (userId) => {
     const updatedUsers = data.filter(user => user.id !== userId);
     setdata(updatedUsers);
+    const c = updatedUsers.filter(user=>user.role==='admin')
+    const d = updatedUsers.filter(user=>user.role==='member')
+    setadmins(c.length);
+    setmembers(d.length);
   };
 
   const handleSave = (userId) => {
@@ -160,6 +180,7 @@ function App() {
   };
 
 
+
   const renderPagination = () => {
     const pageNumbers = [];
     for (let i = 1; i <= pageCount; i++) {
@@ -174,9 +195,8 @@ function App() {
     return <div>{pageNumbers}</div>;
   };
 
-  const paginate = ({ selected }) => {
-    setCurrentPage(selected + 1);
- };
+
+  
 
   return (
     <>
@@ -194,6 +214,7 @@ function App() {
             />
             Select All
           </label>
+          <Stats totalusers = {data.length} admins = {admins} members = {members}/>
           <img src={Deleteicon} className='top-delete' onClick={deleteall}/>
         </div>
         <table className='user-table'>
@@ -292,7 +313,6 @@ function App() {
               <img src={fastforward} onClick={goToLastPage}/>
             </div>
           </div>
-          
           
         </div>
       </div>
