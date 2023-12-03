@@ -96,12 +96,18 @@ function App() {
     setdata(updatedData);
     setSelectedRows([]);
     setSelectAll(false);
+    const c= updatedData.filter(user=>user.role==='admin')
+    const d = updatedData.filter(user=>user.role==='member')
+    setadmins(c.length);
+    setmembers(d.length);
   };
   
   const deleteall = ()=>{
     setdata([]);
     setSelectAll(false);
     setSelectedRows([]);
+    setadmins(0);
+    setmembers(0);
   }
   
   const handleEdit = (user) => {
