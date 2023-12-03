@@ -127,6 +127,10 @@ function App() {
     });
 
     setdata(updatedData);
+    const c = updatedData.filter(user=>user.role==='admin')
+    const d = updatedData.filter(user=>user.role==='member')
+    setadmins(c.length);
+    setmembers(d.length);
     setEditingId(null);
     setEditedUser({});
     
